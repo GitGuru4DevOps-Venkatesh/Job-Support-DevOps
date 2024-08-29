@@ -1,7 +1,7 @@
 # Job-Support-DevOps
 Documentation Support on DevOps
 
-Certainly! Below is a sample format for the `README.md` file you can use on GitHub to include the monitoring, logging, and API tracing steps for a GKE cluster using third-party tools:
+Monitoring, logging, and API tracing steps for a GKE cluster using third-party tools:
 
 ```markdown
 # Monitoring, Logging, and API Tracing on GKE Cluster
@@ -96,11 +96,11 @@ Below includes descriptions and YAML file examples for integrating cost-effectiv
 ```markdown
 # Monitoring and Logging on GKE Cluster
 
-This repository provides integration examples for cost-effective third-party tools to monitor and log your Google Kubernetes Engine (GKE) cluster. The provided YAML files will help you quickly set up these tools.
+***With Yaml FIles here to integrate:
 
 ## Monitoring
 
-Here are some cost-effective third-party tool options for monitoring your GKE cluster, along with YAML file examples for integration.
+**Third-party tool options for monitoring your GKE cluster, along with YAML file examples for integration.
 
 ### 1. Prometheus
 
@@ -232,7 +232,7 @@ spec:
 
 ## Logging
 
-Here are some cost-effective third-party tool options for logging your GKE cluster, along with YAML file examples for integration.
+Some cost-effective third-party tool options for logging your GKE cluster, along with YAML file examples for integration.
 
 ### 1. ELK Stack (Elasticsearch, Logstash, Kibana)
 
