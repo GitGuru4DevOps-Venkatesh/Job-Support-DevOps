@@ -232,7 +232,7 @@ spec:
 
 ## Logging
 
-Some cost-effective third-party tool options for logging your GKE cluster, along with YAML file examples for integration.
+**Some cost-effective third-party tool options for logging your GKE cluster, along with YAML file examples for integration.**
 
 ### 1. ELK Stack (Elasticsearch, Logstash, Kibana)
 
@@ -240,7 +240,7 @@ Some cost-effective third-party tool options for logging your GKE cluster, along
 The ELK Stack is a popular open-source logging and analytics platform that provides centralized log management, search, and visualization capabilities.
 
 **YAML Files:**  
-- `elasticsearch-deployment.yaml`
+1- `elasticsearch-deployment.yaml`
 
 ```yaml
 apiVersion: apps/v1
@@ -264,7 +264,7 @@ spec:
           - containerPort: 9200
 ```
 
-- `logstash-deployment.yaml`
+2- `logstash-deployment.yaml`
 
 ```yaml
 apiVersion: apps/v1
@@ -288,7 +288,7 @@ spec:
           - containerPort: 5044
 ```
 
-- `kibana-deployment.yaml`
+3- `kibana-deployment.yaml`
 
 ```yaml
 apiVersion: apps/v1
@@ -318,7 +318,7 @@ spec:
 Papertrail is a cloud-based logging platform that provides real-time log aggregation, search, and alerting capabilities. It offers a free tier with limited features.
 
 **YAML File:**  
-- `papertrail-agent.yaml`
+4- `papertrail-agent.yaml`
 
 ```yaml
 apiVersion: apps/v1
@@ -348,7 +348,7 @@ spec:
 Loggly is a cloud-based logging platform that provides real-time log aggregation, search, and alerting capabilities. It offers a free tier with limited features.
 
 **YAML File:**  
-- `loggly-agent.yaml`
+5- `loggly-agent.yaml`
 
 ```yaml
 apiVersion: apps/v1
@@ -384,7 +384,7 @@ Kindly replace ## placeholders like `<YOUR_LICENSE_KEY>`, `<YOUR_APP_NAME>`, `<Y
 The ELK Stack is a popular solution for centralized logging. Here’s how to set it up:
 
 1. **Deploy Elasticsearch**:
-   - Create a `elasticsearch-deployment.yaml` file with the following content:
+   a- Create a `elasticsearch-deployment.yaml` file with the following content:
    ```yaml
    apiVersion: apps/v1
    kind: Deployment
@@ -412,7 +412,7 @@ The ELK Stack is a popular solution for centralized logging. Here’s how to set
    ```
 
 2. **Deploy Logstash**:
-   - Create a `logstash-deployment.yaml` file with the following content:
+   b- Create a `logstash-deployment.yaml` file with the following content:
    ```yaml
    apiVersion: apps/v1
    kind: Deployment
@@ -443,7 +443,7 @@ The ELK Stack is a popular solution for centralized logging. Here’s how to set
              name: logstash-config
    ```
 
-   - Also, create a `logstash-config.yaml` for the Logstash configuration:
+   c- Also, create a `logstash-config.yaml` for the Logstash configuration:
    ```yaml
    apiVersion: v1
    kind: ConfigMap
@@ -464,14 +464,14 @@ The ELK Stack is a popular solution for centralized logging. Here’s how to set
        }
    ```
 
-   - Apply the configuration:
+   d- Apply the configuration:
    ```bash
    kubectl apply -f logstash-config.yaml
    kubectl apply -f logstash-deployment.yaml
    ```
 
 3. **Deploy Kibana**:
-   - Create a `kibana-deployment.yaml` file:
+   a- Create a `kibana-deployment.yaml` file:
    ```yaml
    apiVersion: apps/v1
    kind: Deployment
@@ -494,7 +494,7 @@ The ELK Stack is a popular solution for centralized logging. Here’s how to set
            - containerPort: 5601
    ```
 
-   - Apply the deployment:
+   b- Apply the deployment:
    ```bash
    kubectl apply -f kibana-deployment.yaml
    ```
@@ -503,7 +503,7 @@ The ELK Stack is a popular solution for centralized logging. Here’s how to set
 Jaeger is a powerful tool for distributed tracing. Here's how to deploy it:
 
 1. **Deploy Jaeger**:
-   - Create a `jaeger-deployment.yaml` file:
+   a- Create a `jaeger-deployment.yaml` file:
    ```yaml
    apiVersion: apps/v1
    kind: Deployment
@@ -527,7 +527,7 @@ Jaeger is a powerful tool for distributed tracing. Here's how to deploy it:
            - containerPort: 14268
    ```
 
-   - Apply the deployment:
+   b- Apply the deployment:
    ```bash
    kubectl apply -f jaeger-deployment.yaml
    ```
