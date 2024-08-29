@@ -375,8 +375,168 @@ spec:
 ## Conclusion
 
 This repository contains the necessary steps and YAML files to integrate third-party tools for effective monitoring and logging in your GKE cluster. These examples aim to provide a quick and cost-effective solution to enhance your cluster's observability and logging capabilities.
-```
 
-###
 Kindly replace ## placeholders like `<YOUR_LICENSE_KEY>`, `<YOUR_APP_NAME>`, `<YOUR_API_KEY>`, etc., with actual values before deployment. This format ensures that all relevant information is clearly presented for easy integration and setup.
-###
+
+## To configure logging and tracing in your GKE cluster after deploying Prometheus and Grafana, follow these steps:
+
+### Logging with ELK Stack (Elasticsearch, Logstash, Kibana)
+The ELK Stack is a popular solution for centralized logging. Here’s how to set it up:
+
+1. **Deploy Elasticsearch**:
+   - Create a `elasticsearch-deployment.yaml` file with the following content:
+   ```yaml
+   apiVersion: apps/v1
+   kind: Deployment
+   metadata:
+     name: elasticsearch
+   spec:
+     replicas: 1
+     selector:
+       matchLabels:
+         app: elasticsearch
+     template:
+       metadata:
+         labels:
+           app: elasticsearch
+       spec:
+         containers:
+         - name: elasticsearch
+           image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
+           ports:
+           - containerPort: 9200
+   ```
+   - Apply it using:
+   ```bash
+   kubectl apply -f elasticsearch-deployment.yaml
+   ```
+
+2. **Deploy Logstash**:
+   - Create a `logstash-deployment.yaml` file with the following content:
+   ```yaml
+   apiVersion: apps/v1
+   kind: Deployment
+   metadata:
+     name: logstash
+   spec:
+     replicas: 1
+     selector:
+       matchLabels:
+         app: logstash
+     template:
+       metadata:
+         labels:
+           app: logstash
+       spec:
+         containers:
+         - name: logstash
+           image: docker.elastic.co/logstash/logstash:7.9.3
+           ports:
+           - containerPort: 5044
+           volumeMounts:
+           - name: logstash-config
+             mountPath: /usr/share/logstash/pipeline/logstash.conf
+             subPath: logstash.conf
+         volumes:
+         - name: logstash-config
+           configMap:
+             name: logstash-config
+   ```
+
+   - Also, create a `logstash-config.yaml` for the Logstash configuration:
+   ```yaml
+   apiVersion: v1
+   kind: ConfigMap
+   metadata:
+     name: logstash-config
+   data:
+     logstash.conf: |
+       input {
+         beats {
+           port => 5044
+         }
+       }
+       output {
+         elasticsearch {
+           hosts => ["http://elasticsearch:9200"]
+           index => "logstash-%{+YYYY.MM.dd}"
+         }
+       }
+   ```
+
+   - Apply the configuration:
+   ```bash
+   kubectl apply -f logstash-config.yaml
+   kubectl apply -f logstash-deployment.yaml
+   ```
+
+3. **Deploy Kibana**:
+   - Create a `kibana-deployment.yaml` file:
+   ```yaml
+   apiVersion: apps/v1
+   kind: Deployment
+   metadata:
+     name: kibana
+   spec:
+     replicas: 1
+     selector:
+       matchLabels:
+         app: kibana
+     template:
+       metadata:
+         labels:
+           app: kibana
+       spec:
+         containers:
+         - name: kibana
+           image: docker.elastic.co/kibana/kibana:7.9.3
+           ports:
+           - containerPort: 5601
+   ```
+
+   - Apply the deployment:
+   ```bash
+   kubectl apply -f kibana-deployment.yaml
+   ```
+
+### Tracing with Jaeger
+Jaeger is a powerful tool for distributed tracing. Here's how to deploy it:
+
+1. **Deploy Jaeger**:
+   - Create a `jaeger-deployment.yaml` file:
+   ```yaml
+   apiVersion: apps/v1
+   kind: Deployment
+   metadata:
+     name: jaeger
+   spec:
+     replicas: 1
+     selector:
+       matchLabels:
+         app: jaeger
+     template:
+       metadata:
+         labels:
+           app: jaeger
+       spec:
+         containers:
+         - name: jaeger
+           image: jaegertracing/all-in-one:1.17
+           ports:
+           - containerPort: 16686
+           - containerPort: 14268
+   ```
+
+   - Apply the deployment:
+   ```bash
+   kubectl apply -f jaeger-deployment.yaml
+   ```
+
+2. **Instrument Your Applications**:
+   - Add Jaeger instrumentation libraries to your application to start sending trace data to the Jaeger instance. This usually involves including the Jaeger client libraries in your code and configuring the trace endpoint.
+
+### Summary
+- **Logging**: ELK Stack provides a robust solution for log aggregation and visualization.
+- **Tracing**: Jaeger helps you trace API calls and understand the latency and performance issues within your distributed applications.
+
+This setup will ensure that your GKE cluster is well-monitored, with both logging and tracing capabilities in place.
