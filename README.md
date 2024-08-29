@@ -14,7 +14,7 @@ This repository provides the steps to integrate various third-party tools for mo
 Prometheus is an open-source monitoring system that provides metrics and alerting capabilities. It can be used in conjunction with Grafana for visualization.
 
 #### Integration Steps:
-1. **Install Prometheus** on your GKE cluster using a Helm chart or a Deployment YAML file.
+1. Install Prometheus on your GKE cluster using a Helm chart or a Deployment YAML file.
 2. **Configure Prometheus** to scrape metrics from your GKE cluster nodes and pods.
 3. **Install Grafana** on your GKE cluster and configure it to connect to Prometheus.
 
@@ -112,7 +112,7 @@ Prometheus is a popular open-source monitoring system that provides metrics and 
 **YAML Files:**  
 - `prometheus-deployment.yaml`
 
-```yaml
+```
 apiVersion: apps/v1
 kind: Deployment
 metadata:
