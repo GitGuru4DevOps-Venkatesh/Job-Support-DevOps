@@ -91,9 +91,7 @@ This repository contains the necessary steps to integrate third-party tools for 
 ```
 # Monitoring and Logging on GKE Cluster
 
-This repository provides integration examples for cost-effective third-party tools to monitor and log your Google Kubernetes Engine (GKE) cluster. The provided YAML files will help you quickly set up these tools.
-
-Certainly! Below is a formatted `README.md` file that includes descriptions and YAML file examples for integrating cost-effective third-party tools for monitoring and logging on a GKE cluster.
+Below includes descriptions and YAML file examples for integrating cost-effective third-party tools for monitoring and logging on a GKE cluster.
 
 ```markdown
 # Monitoring and Logging on GKE Cluster
@@ -112,7 +110,7 @@ Prometheus is a popular open-source monitoring system that provides metrics and 
 **YAML Files:**  
 - `prometheus-deployment.yaml`
 
-```
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
