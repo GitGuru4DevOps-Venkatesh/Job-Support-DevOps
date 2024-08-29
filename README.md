@@ -240,7 +240,7 @@ spec:
 The ELK Stack is a popular open-source logging and analytics platform that provides centralized log management, search, and visualization capabilities.
 
 **YAML Files:**  
-1- `elasticsearch-deployment.yaml`
+1.`elasticsearch-deployment.yaml`
 
 ```yaml
 apiVersion: apps/v1
